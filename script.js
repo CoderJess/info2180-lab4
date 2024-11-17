@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .catch(error => {
                 resultDiv.style.color = "red";
-                resultDiv.innerHTML = 'Error retrieving data';
+                resultDiv.innerHTML = 'Superhero not Found';
             });
     });
 
