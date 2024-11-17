@@ -1,5 +1,8 @@
 <?php
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 $superheroes = [
   [
       "id" => 1,
@@ -63,10 +66,28 @@ $superheroes = [
   ], 
 ];
 
-?>
+$query = isset($_GET['query']) ? trim($_GET['query']) : '';
 
-<ul>
-<?php foreach ($superheroes as $superhero): ?>
-  <li><?= $superhero['alias']; ?></li>
-<?php endforeach; ?>
-</ul>
+// Sanitize input
+$query = htmlspecialchars($query, ENT_QUOTES, 'UTF-8');
+
+$result = [];
+
+// If a query is provided, search for matching superheroes
+if (!empty($query)) {
+    foreach ($superheroes as $superhero) {
+        if (stripos($superhero['alias'], $query) !== false || stripos($superhero['name'], $query) !== false) {
+            $result[] = $superhero;
+        }
+    }
+}
+
+// Return the result as JSON
+header('Content-Type: application/json');
+if (empty($result)) {
+    echo json_encode(["error" => "No superhero found."]);
+} else {
+    echo json_encode($result);
+}
+exit;
+?>
