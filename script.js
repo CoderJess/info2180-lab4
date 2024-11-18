@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
         resultDiv.innerHTML = '<p>Loading...</p>';
 
         // Use Fetch API to get data
-        fetch(`http://localhost/info2180-lab4-alias/superheroes.php?query=${sanitizedInput}`)
+        fetch(`http://localhost/info2180-lab4/superheroes.php?query=${sanitizedInput}`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
